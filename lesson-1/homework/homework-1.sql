@@ -50,3 +50,4 @@
 	2-step. Copy and paste the dowloaded file to C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\Backup in your computer.
 	3-step. Open SSMS, choose the folder Databases and click right of mouse and choose Restore Database.
 	4-step. Choose Device from Source and Open Select Backup devices. Click on Add and find the AdventureWorksDW2022.bak file from your computer and press OK. 
+
