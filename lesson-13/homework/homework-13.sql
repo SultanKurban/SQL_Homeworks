@@ -137,7 +137,6 @@ FROM Student AS table1 INNER JOIN Student AS table2 ON table1.StudentName != tab
 --19.You have a table with two players (Player A and Player B) and their scores. 
 		--If a pair of players have multiple entries, aggregate their scores into a single row for each unique pair of players. 
 		--Write an SQL query to calculate the total score for each unique player pair(PlayerScores)
-SELECT * FROM PlayerScores
 
 SELECT 
     CASE 
