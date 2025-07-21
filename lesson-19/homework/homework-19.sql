@@ -79,8 +79,8 @@ Inserts new products if ProductID does not exist
 Deletes products from Products_Current if they are missing in Products_New
 Return the final state of Products_Current after the MERGE.
 */
-SELECT * FROM Products_Current	
-SELECT * FROM Products_New
+--SELECT * FROM Products_Current	
+--SELECT * FROM Products_New
 
 MERGE Products_Current AS target
 USING Products_New	AS source
