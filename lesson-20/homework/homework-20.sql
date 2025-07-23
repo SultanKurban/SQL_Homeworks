@@ -1,28 +1,6 @@
 
 ----=== HOMEWORK 20 ===-----
 
-CREATE TABLE #Sales (
-    SaleID INT PRIMARY KEY IDENTITY(1,1),
-    CustomerName VARCHAR(100),
-    Product VARCHAR(100),
-    Quantity INT,
-    Price DECIMAL(10,2),
-    SaleDate DATE
-);
-
-INSERT INTO #Sales (CustomerName, Product, Quantity, Price, SaleDate) VALUES
-('Alice', 'Laptop', 1, 1200.00, '2024-01-15'),
-('Bob', 'Smartphone', 2, 800.00, '2024-02-10'),
-('Charlie', 'Tablet', 1, 500.00, '2024-02-20'),
-('David', 'Laptop', 1, 1300.00, '2024-03-05'),
-('Eve', 'Smartphone', 3, 750.00, '2024-03-12'),
-('Frank', 'Headphones', 2, 100.00, '2024-04-08'),
-('Grace', 'Smartwatch', 1, 300.00, '2024-04-25'),
-('Hannah', 'Tablet', 2, 480.00, '2024-05-05'),
-('Isaac', 'Laptop', 1, 1250.00, '2024-05-15'),
-('Jack', 'Smartphone', 1, 820.00, '2024-06-01');
-
-
 --1. Find customers who purchased at least one item in March 2024 using EXISTS
 --SELECT * FROM #Sales
 
@@ -36,7 +14,7 @@ WHERE EXISTS (SELECT * FROM #Sales AS s2 WHERE s2.SaleID = s1.SaleID)
 	AND DATEPART(YEAR, SaleDate) = 2024
 
 --2. Find the product with the highest total sales revenue using a subquery.
-SELECT * FROM #Sales
+--SELECT * FROM #Sales
 
 SELECT MAX(t.total_s_r) AS highest_total_sales
 FROM (SELECT Product, SUM(Quantity*Price) AS total_s_r FROM #Sales GROUP BY Product) AS t
@@ -70,7 +48,7 @@ FROM
 GROUP BY t2.Month_name
 
 --5. Find customers who bought same products as another customer using EXISTS
-SELECT * FROM #Sales
+--SELECT * FROM #Sales
 
 SELECT CustomerName, 
 		Product 
@@ -82,22 +60,7 @@ WHERE EXISTS (SELECT CustomerName,
 					AND s1.CustomerName <> s2.CustomerName)
 
 --6. Return how many fruits does each person have in individual fruit level
-/*
-create table Fruits(Name varchar(50), Fruit varchar(50))
-insert into Fruits values ('Francesko', 'Apple'), ('Francesko', 'Apple'), ('Francesko', 'Apple'), ('Francesko', 'Orange'),
-							('Francesko', 'Banana'), ('Francesko', 'Orange'), ('Li', 'Apple'), 
-							('Li', 'Orange'), ('Li', 'Apple'), ('Li', 'Banana'), ('Mario', 'Apple'), ('Mario', 'Apple'), 
-							('Mario', 'Apple'), ('Mario', 'Banana'), ('Mario', 'Banana'), 
-							('Mario', 'Orange')
------------expected output
-+-----------+-------+--------+--------+
-| Name      | Apple | Orange | Banana |
-+-----------+-------+--------+--------+
-| Francesko |   3   |   2    |   1    |
-| Li        |   2   |   1    |   1    |
-| Mario     |   3   |   1    |   2    |
-+-----------+-------+--------+--------+
-*/
+
 --SELECT * FROM Fruits
 
 SELECT Name, 
@@ -107,26 +70,6 @@ SELECT Name,
 FROM (SELECT DISTINCT Name FROM Fruits) AS f1
 
 --7. Return older people in the family with younger ones
-/*
-create table Family(ParentId int, ChildID int)
-insert into Family values (1, 2), (2, 3), (3, 4)
-----------------------
-ParentId	ChildID
-1	2
-2	3
-3	4
-
-+-----+-----+		
-| PID |CHID |
-+-----+-----+
-|  1  |  2  |
-|  1  |  3  |
-|  1  |  4  |
-|  2  |  3  |
-|  2  |  4  |
-|  3  |  4  |
-+-----+-----+
-*/
 --1 grandfather 2 Father 3 Son 4 Grandson
 --SELECT * FROM Family
 
@@ -137,22 +80,7 @@ ORDER BY P.ParentId, ch.ChildID
 
 --8 Write an SQL statement given the following requirements. For every customer that had a delivery to California, 
 		--provide a result set of the customer orders that were delivered to Texas
-/*
-CREATE TABLE #Orders
-(
-CustomerID     INTEGER,
-OrderID        INTEGER,
-DeliveryState  VARCHAR(100) NOT NULL,
-Amount         MONEY NOT NULL,
-PRIMARY KEY (CustomerID, OrderID)
-);
 
-
-INSERT INTO #Orders (CustomerID, OrderID, DeliveryState, Amount) VALUES
-(1001,1,'CA',340),(1001,2,'TX',950),(1001,3,'TX',670),
-(1001,4,'TX',860),(2002,5,'WA',320),(3003,6,'CA',650),
-(3003,7,'CA',830),(4004,8,'TX',120); 
-*/
 --SELECT * FROM #Orders
 
 SELECT DISTINCT CustomerID, DeliveryState FROM #Orders AS o1
@@ -176,23 +104,7 @@ WHERE resid = 5;
 
 --10. Write a query to return the route to reach from Tashkent to Khorezm. 
 		--The result should include the cheapest and the most expensive routes
-CREATE TABLE #Routes
-(
-RouteID        INTEGER NOT NULL,
-DepartureCity  VARCHAR(30) NOT NULL,
-ArrivalCity    VARCHAR(30) NOT NULL,
-Cost           MONEY NOT NULL,
-PRIMARY KEY (DepartureCity, ArrivalCity)
-);
 
-INSERT INTO #Routes (RouteID, DepartureCity, ArrivalCity, Cost) VALUES
-(1,'Tashkent','Samarkand',100),
-(2,'Samarkand','Bukhoro',200),
-(3,'Bukhoro','Khorezm',300),
-(4,'Samarkand','Khorezm',400),
-(5,'Tashkent','Jizzakh',100),
-(6,'Jizzakh','Samarkand',50);
-/*
 |             Route                                 |Cost |
 |Tashkent - Samarkand - Khorezm                     | 500 |
 |Tashkent - Jizzakh - Samarkand - Bukhoro - Khorezm | 650 |
